@@ -26,7 +26,7 @@ class DecisionTree:
         self.max_depth = max_depth  # Maximum depth of the decision tree
         self.tree = None  # Root node of the decision tree
 
-    def fit(self, X, y):
+    def fit(self, x, y):
         """
         Fit the decision tree to the given data.
 
@@ -37,7 +37,7 @@ class DecisionTree:
         Returns:
             -- None
         """
-        self.tree = self._build_tree(X, y)  # Call the recursive _build_tree function to construct the tree
+        self.tree = self._build_tree(x, y)  # Call the recursive _build_tree function to construct the tree
 
     def _build_tree(self, X, y):
         """
@@ -236,40 +236,43 @@ class DecisionTree:
 # load sex input in numeric form
 def input_sex():
     print("Enter sex (M or F): ")
-    sex = input()
-    if sex == 'M' or sex.lower() == 'male':
-        return 0
-    elif sex == 'F' or sex.lower() == 'female':
-        return 1
-    else:
-        print("Invalid input. Please try again.")
+    while True:
+        sex = input()
+        if sex == 'M' or sex.lower() == 'male':
+            return 0
+        elif sex == 'F' or sex.lower() == 'female':
+            return 1
+        else:
+            print("Invalid input. Please try again.")
 
 # load blood pressure input in numeric form
 def input_bp():
     print("Enter blood pressure (LOW, NORMAL, or HIGH): ")
-    bp = input()
-    if bp.lower() == 'low':
-        return 0
-    elif bp.lower() == 'normal':
-        return 1
-    elif bp.lower() == 'high':
-        return 2
-    else:
-        print("Invalid input. Please try again.")
+    while True:
+        bp = input()
+        if bp.lower() == 'low':
+            return 0
+        elif bp.lower() == 'normal':
+            return 1
+        elif bp.lower() == 'high':
+            return 2
+        else:
+            print("Invalid input. Please try again.")
 
 # load cholesterol input in numeric form
 def input_chol():
     print("Enter cholesterol (NORMAL or HIGH): ")
-    chol = input()
-    if chol.lower() == 'normal':
-        return 0
-    elif chol.lower() == 'high':
-        return 1
-    else:
-        print("Invalid input. Please try again.")
+    while True:
+        chol = input()
+        if chol.lower() == 'normal':
+            return 0
+        elif chol.lower() == 'high':
+            return 1
+        else:
+            print("Invalid input. Please try again.")
 
 # Load the dataset from CSV using pandas
-df = pd.read_csv('DecisionTreeProject1\classification_1\drug200.csv')
+df = pd.read_csv('MedicineDecisionTree\DecisionTreeProject1\classification_1\drug200.csv')
 
 # Create an instance of LabelEncoder
 label_encoder = LabelEncoder()
@@ -294,7 +297,7 @@ y = df['Drug'].values
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Train a decision tree classifier
-clf = DecisionTree(max_depth=3)
+clf = DecisionTree()
 clf.fit(X_train, y_train)
 
 
@@ -309,7 +312,7 @@ y_pred = clf.predict(X_test)
 from sklearn.tree import DecisionTreeClassifier
 
 # Train a decision tree classifier
-clf_fw = DecisionTreeClassifier(criterion="entropy", max_depth = 3)
+clf_fw = DecisionTreeClassifier(criterion="entropy", max_depth = 4)
 clf_fw.fit(X_train, y_train)
 
 # Print the trained tree
